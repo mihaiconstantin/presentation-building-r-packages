@@ -1,0 +1,2 @@
+# We decided to estimate a linear regression model by maximizing the loglikelihood.
+# We are going to write a function to create the model matrix.
