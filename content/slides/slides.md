@@ -7,7 +7,7 @@
     September 23<sup>rd</sup>, 2019
 </p>
 
-<img src="../img/tiu_logo_small_light.png" alt="Tilburg University" width=100/ class="img-reset">
+<img src="img/tiu_logo_small_light.png" alt="Tilburg University" width=100/ class="img-reset">
 
 
 
