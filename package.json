@@ -1,0 +1,26 @@
+{
+  "name": "workshop-building-r-packages",
+  "version": "1.0.0",
+  "description": "Introduction to building R packages (workshop code, abstract, and presentation)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mihaiconstantin/workshop-building-r-packages.git"
+  },
+  "keywords": [
+    "r",
+    "packages",
+    "statistics",
+    "methodology",
+    "workshop"
+  ],
+  "author": "Mihai Constantin & Giuseppe Arena",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mihaiconstantin/workshop-building-r-packages/issues"
+  },
+  "homepage": "https://github.com/mihaiconstantin/workshop-building-r-packages#readme"
+}
