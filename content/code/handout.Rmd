@@ -1,2 +1,9 @@
+---
+title: "Introduction to building R Packages"
+author: "Giuseppe Arena"
+date: "September 18, 2019"
+output: html_document
+---
+
 # We decided to estimate a linear regression model by maximizing the loglikelihood.
 # We are going to write a function to create the model matrix.
