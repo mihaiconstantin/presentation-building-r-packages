@@ -1,0 +1,1 @@
+# We decided to estimate a linear regression model by maximizing the loglikelihood.
