@@ -1,9 +1,68 @@
 ---
 title: "Introduction to building R Packages"
-author: "Giuseppe Arena"
-date: "September 18, 2019"
+author: ""
+date: ""
 output: html_document
 ---
 
-# We decided to estimate a linear regression model by maximizing the loglikelihood.
-# We are going to write a function to create the model matrix.
+We decided to estimate a linear regression model by maximizing its loglikelihood function.
+
+## The data frame
+First of all, let's have a look into the data structure, which our regressors are and which outcome we are interested in.
+
+```{r, message=FALSE,warning=FALSE}
+library(MASS)
+head(crabs)
+```
+> **Description of the data frame** (_from the documentation_)  
+> The `crabs` data frame has 200 rows and 8 columns, describing 5 morphological measurements on 50 crabs each of two colour forms and both sexes, of the species _Leptograpsus variegatus_ collected at Fremantle, W. Australia.
+
+
+### The statistical unit
+The _statistical unit_ in the data frame is a _crab_. For each of the 200 crabs several morphological measurements were recorded, such as
+
+* `FL`  : _Front Lobal Size_ (mm);
+* `RW`  : _Rear Width_ (mm);
+* `CL`  : _Carapace Length_ (mm);
+* `CW`  : _Carapace Width_ (mm);
+* `BD`  : _Body Depth_ (mm).
+
+Other than these, we also know
+
+* `sex` : `M` (_Male_), `F` (_Female_); 
+* `sp`  : _specie_, referring to the color forms, `B` for _blue_, `O` for _orange_.
+
+Finally, the `index` column assumes values in `1:50` within each of the four groups that result by the combination of the levels of `sex` and `sp` (specie). We won't use it in our analysis.
+
+### Goal of the research
+Both color forms had been classified as morphs of the _L. variegatus_. However, with genetic analysis and ecological studies, researchers found these two forms to be two distinct species. 
+Therefore, the need of developing a criteria for the identification of the specie.
+
+## The model: Logistic Regression
+Let's consider `sp`as our _dependent variable_ $Y$. We want to model the probability of observing a _blue_ crab (that is $P(Y = B)$) given the morphological measurements in our hands, that we will call $X$. We assume that
+$$Y_i\sim Ber(p_i)\quad{}i=1,\ldots,200$$
+$Y_i$ generates from a _Bernoulli_ distribution with probability of assuming the value $B$
+$$P(Y_i = B) = p_i$$
+We would like to model this probability as a function of the morphological measurements listed above. We can model $p_i$ as a function of them
+$$p_i = f(X_i) $$
+without overthinking about it, we can just use the most used (on average) function that is the **logistic function**,
+$$f(X_i) = \frac{\exp{\left\lbrace\eta_i\right\rbrace}}{1+\exp{\left\lbrace\eta_i\right\rbrace}}$$
+where $\eta_i$ is the **linear predictor** 
+$$\eta_i = \beta_0 + \beta_1\cdot sex^{male}_i + \beta_2\cdot FL_i + \beta_3 \cdot RW_i + \beta_4 \cdot CL_i + \beta_5 \cdot CW_i + \beta_6 \cdot BD_i $$
+Parameters are interpreted in the usual fashion: they represent the effect of a specific variable on the log-odds ratio.
+# The likelihood to maximize
+Write here the likelihood (independence assumption among observation)
+Write here the function we need to minimize (-loglikelihood)
+
+Task : Researchers want statistician to write a package with all the functions needed for the analysis
+
+# Functions
+* model matrix
+* likelihood function
+* optimization function
+* printing results
+* plotting results
+
+```{r}
+
+```
