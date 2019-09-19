@@ -45,24 +45,58 @@ $Y_i$ generates from a _Bernoulli_ distribution with probability of assuming the
 $$P(Y_i = B) = p_i$$
 We would like to model this probability as a function of the morphological measurements listed above. We can model $p_i$ as a function of them
 $$p_i = f(X_i) $$
-without overthinking about it, we can just use the most used (on average) function that is the **logistic function**,
+without overthinking about it, we can just consider the most used function that is the **logistic function**,
 $$f(X_i) = \frac{\exp{\left\lbrace\eta_i\right\rbrace}}{1+\exp{\left\lbrace\eta_i\right\rbrace}}$$
-where $\eta_i$ is the **linear predictor** 
+where $\eta_i=\eta_i(X_i)$ is the **linear predictor** depending on the covariates $X_i$
 $$\eta_i = \beta_0 + \beta_1\cdot sex^{male}_i + \beta_2\cdot FL_i + \beta_3 \cdot RW_i + \beta_4 \cdot CL_i + \beta_5 \cdot CW_i + \beta_6 \cdot BD_i $$
 Parameters are interpreted in the usual fashion: they represent the effect of a specific variable on the log-odds ratio.
+
 # The likelihood to maximize
-Write here the likelihood (independence assumption among observation)
-Write here the function we need to minimize (-loglikelihood)
 
-Task : Researchers want statistician to write a package with all the functions needed for the analysis
+By assuming the independence among crabs we can write the likelihood as follows
+$$ \mathcal{L}(\beta;Y,X) = \prod_{i=1}^{200}{P(Y=y_i|X=X_i)}=\prod_{i=1}^{200}{p_i^{y_i}(1-p_i)^{1-y_i}}=$$
+$$=\prod_{i=1}^{200}{\left[\frac{\exp{\left\lbrace\eta_i\right\rbrace}}{1+\exp{\left\lbrace\eta_i\right\rbrace}}\right]^{y_i}\left[\frac{1}{1+\exp{\left\lbrace\eta_i\right\rbrace}}\right]^{1-y_i}}=\prod_{i=1}^{200}{\exp{\left\lbrace\eta_i\right\rbrace}^{y_i}}\frac{1}{1+\exp{\left\lbrace\eta_i\right\rbrace}}$$
+Usually, the function to maximize is the logarithm of the likelihood, that is $\log{\mathcal{L}(\beta;Y,X)}$,
+$$ \log{\mathcal{L}(\beta;Y,X)} =\sum_{i=1}^{200}{\left[y_i\eta_i-\log(1+\exp{\left\lbrace\eta_i\right\rbrace})\right]} $$
 
-# Functions
-* model matrix
-* likelihood function
-* optimization function
-* printing results
-* plotting results
+# Let's get our hands dirty with coding
+Statistician are asked to provide a package such that scholars can run the analysis whenever they want by using simple functions. Thus,
+they need to provide the following functions:
 
+- `model_matrix` (used to create the design matrix given the data frame, that is $\eta$);
+- `loglikelihood` (as it says);
+- `logistic_reg` (finds the vector of $\beta$'s that maximizes the loglikelihood);
+- `summary.logistic_reg` (print the summary of the model: maximum likelihood estimates, standard errors, odds ratios, deviance);
+- `plot.logistic_reg` (plot some typical diagnostics for the logistic regression).
+
+### `model_matrix`
 ```{r}
+create_contrast <- function(covariate) { #we'll consider the first level as baseline
+     contrasts_cov <- contrasts(covariate)
+     return(t(sapply(as.numeric(covariate), function(x) contrasts_cov[x,])))
+}
+
+model_matrix <- function(data) {
+  if(!is.data.frame(data)) stop("the input 'data' is not a data frame")
+  
+  column_classes <- unlist(lapply(data,class))
+  column_fact_char_log <- which(column_classes == "factor" | column_classes == "character" | column_classes == "logical")
+  column_numbers <- setdiff(1:dim(data)[1],column_fact_char_log)
+  
+  data_fact_char_log <- NULL
+  if(length(column_fact_char)!=0) {
+    for(i in 1:length(column_fact_char_log)) {
+      data_fact_char_log <- cbind(data_fact_char_log,
+                                  create_contrast(data[,column_fact_char_log[i]]))
+    }
+  }
+  
+  data_numbers <- NULL
+  if(length(column_numbers)!=0) {
+    data_numbers <- data[,column_numbers]
+  }
+  return(cbind(data_fact_char_log,data_numbers))
+}
+
 
 ```
