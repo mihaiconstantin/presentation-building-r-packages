@@ -188,9 +188,120 @@ $(document).ready(function () {
 </div>
 
 
-<p>We decided to estimate a linear regression model by maximizing its loglikelihood function.</p>
-<div id="the-data-frame" class="section level2">
-<h2>The data frame</h2>
+<div id="the-ordinary-non-parametric-bootstrap" class="section level3">
+<h3>The Ordinary non-parametric bootstrap</h3>
+<p>A programmer is requested to write a R package that allows user to carry out a bootstrap analysis on whatever statistic of interest given the dataset. The package will have to focus on the ordinary non-parametric bootstrapping procedure, i.e. the very basic one.</p>
+</div>
+<div id="functions-to-be-provided-inside-the-package" class="section level3">
+<h3>Functions to be provided inside the package</h3>
+<p>The programmer will have to provide:</p>
+<ol style="list-style-type: decimal">
+<li>several <em>statistics of interest</em> that the user might need in the analysis:
+<ul>
+<li><code>get_mean</code>;</li>
+<li><code>get_correlation</code>;</li>
+<li><code>get_coefficient_of_variation</code>;</li>
+<li><code>get_index_of_homogeneity</code>;</li>
+</ul></li>
+<li>the <em>main function</em> <code>get_bootstrap</code>, that runs the bootstrap simulation and where functions above will be used;</li>
+<li>additional functions like <code>summary.get_bootstrap</code> and <code>plot.get_bootstrap</code> in order to respectively obtain a summary of the results and plots.</li>
+</ol>
+</div>
+<div id="lets-get-our-hands-dirty-with-coding" class="section level3">
+<h3>Let’s get our hands dirty with coding</h3>
+<div id="statistics-of-interest" class="section level4">
+<h4>1. <strong><em>Statistics of interest</em></strong></h4>
+<ul>
+<li><code>get_mean</code></li>
+</ul>
+<pre class="r"><code>get_mean &lt;- function(data, indices, weights = NULL) {
+  
+  if(!is.null(weights)) {weights &lt;- weights[indices]/sum(weights[indices])}
+  else {weights &lt;- rep(1/length(data[indices]),length(data[indices]))}
+  return(sum(data[indices]*weights))
+}</code></pre>
+<ul>
+<li><code>get_pearson_correlation</code></li>
+</ul>
+<pre class="r"><code>get_pearson_correlation &lt;- function(data, indices, weights = NULL) {
+
+  if(!is.null(weights)) {weights &lt;- weights[indices]/sum(weights[indices])}
+  else {weights &lt;- rep(1/dim(data[indices,])[1],dim(data[indices,])[1])}
+    
+  mean_prods &lt;- sum(apply(data[indices,], 1, prod)*weights)
+  prod_means &lt;- prod(apply(data[indices,], 2, function(x) get_mean(data = x, weights = weights)))
+  standard_deviations &lt;- apply(data[indices,], 2, function(x)   get_mean(data = x^2, weights = weights)-
+                                 get_mean(data = x, weights = weights)^2)^0.5
+  
+  return((mean_prods - prod_means)/prod(standard_deviations))
+}</code></pre>
+<ul>
+<li><code>get_coefficient_of_variation</code></li>
+</ul>
+<pre class="r"><code>get_coefficient_of_variation &lt;- function(data, indices, weights = NULL) {
+
+  if(!is.null(weights)) {weights &lt;- weights[indices]/sum(weights[indices])}
+  else {weights &lt;- rep(1/length(data[indices]),length(data[indices]))}
+    
+  m &lt;- get_mean(data = data[indices], weights = weights)
+  m2 &lt;- get_mean(data = data[indices]^2, weights = weights)
+  sd &lt;- (m2-m^2)^0.5
+  return(sd/m)
+}</code></pre>
+<ul>
+<li><code>get_index_of_homogeneity</code></li>
+</ul>
+<pre class="r"><code>get_index_of_homogeneity &lt;- function(data, indices) {
+
+  if(!is.factor(data)) {stop(&quot;the input variable must be a factor with levels specified&quot;)}
+  K &lt;- length(levels(data))
+  index_unnormalized &lt;- 1 - sum(as.vector(prop.table(table(data[indices])))^2)
+  return(index_unnormalized*(K/(K-1)))
+}</code></pre>
+</div>
+<div id="the-main-function" class="section level4">
+<h4>2. <strong><em>The main function</em></strong></h4>
+<pre class="r"><code>get_bootstrap &lt;- function(data,
+                          statistic,
+                          R,
+                          parallel = FALSE,
+                          ncpus = NULL,
+                          ...) {
+  n &lt;- NROW(data)
+  indices &lt;- 1:n
+  
+  R_samples &lt;- matrix(sample(1:n,n*R,replace=T), nrow = n, ncol = R)
+  if(parallel) {
+    if(is.null(ncpus)) {stop(&quot;The number of cpu's to use must be specified&quot;)}
+    cl &lt;- makeCluster(ncpus)
+    e &lt;- new.env()
+    e$statistic &lt;- statistic
+    e$data &lt;- data
+    e$R_samples &lt;- R_samples
+    # exporting objects from 'local' environment()
+    clusterExport(cl, envir = e, c(&quot;statistic&quot;,
+                                   &quot;data&quot;,
+                                   &quot;R_samples&quot;
+                                    ))
+    boot_sim &lt;- unlist(parallel::parLapply(cl = cl, as.list(1:dim(R_samples)[2]), 
+                                           function(x) statistic(data = data,
+                                                                 indices = R_samples[,x],
+                                                                  ...)))
+    stopCluster(cl)
+    #do nothing for now (code later)
+  }
+  
+  else {
+    boot_sim &lt;- apply(R_samples, 2, function(x) statistic(data = data, indices = x, ...))
+  }
+  
+  #return output
+  return(boot_sim)
+}</code></pre>
+</div>
+</div>
+<div id="the-data-frame" class="section level3">
+<h3>The data frame</h3>
 <p>First of all, let’s have a look into the data structure, which our regressors are and which outcome we are interested in.</p>
 <pre class="r"><code>library(MASS)
 head(crabs)</code></pre>
@@ -205,6 +316,7 @@ head(crabs)</code></pre>
 <p><strong>Description of the data frame</strong> (<em>from the documentation</em>)<br />
 The <code>crabs</code> data frame has 200 rows and 8 columns, describing 5 morphological measurements on 50 crabs each of two colour forms and both sexes, of the species <em>Leptograpsus variegatus</em> collected at Fremantle, W. Australia.</p>
 </blockquote>
+</div>
 <div id="the-statistical-unit" class="section level3">
 <h3>The statistical unit</h3>
 <p>The <em>statistical unit</em> in the data frame is a <em>crab</em>. For each of the 200 crabs several morphological measurements were recorded, such as</p>
@@ -225,55 +337,6 @@ The <code>crabs</code> data frame has 200 rows and 8 columns, describing 5 morph
 <div id="goal-of-the-research" class="section level3">
 <h3>Goal of the research</h3>
 <p>Both color forms had been classified as morphs of the <em>L. variegatus</em>. However, with genetic analysis and ecological studies, researchers found these two forms to be two distinct species. Therefore, the need of developing a criteria for the identification of the specie.</p>
-</div>
-</div>
-<div id="the-model-logistic-regression" class="section level2">
-<h2>The model: Logistic Regression</h2>
-<p>Let’s consider <code>sp</code>as our <em>dependent variable</em> <span class="math inline">\(Y\)</span>. We want to model the probability of observing a <em>blue</em> crab (that is <span class="math inline">\(P(Y = B)\)</span>) given the morphological measurements in our hands, that we will call <span class="math inline">\(X\)</span>. We assume that <span class="math display">\[Y_i\sim Ber(p_i)\quad{}i=1,\ldots,200\]</span> <span class="math inline">\(Y_i\)</span> generates from a <em>Bernoulli</em> distribution with probability of assuming the value <span class="math inline">\(B\)</span> <span class="math display">\[P(Y_i = B) = p_i\]</span> We would like to model this probability as a function of the morphological measurements listed above. We can model <span class="math inline">\(p_i\)</span> as a function of them <span class="math display">\[p_i = f(X_i) \]</span> without overthinking about it, we can just consider the most used function that is the <strong>logistic function</strong>, <span class="math display">\[f(X_i) = \frac{\exp{\left\lbrace\eta_i\right\rbrace}}{1+\exp{\left\lbrace\eta_i\right\rbrace}}\]</span> where <span class="math inline">\(\eta_i=\eta_i(X_i)\)</span> is the <strong>linear predictor</strong> depending on the covariates <span class="math inline">\(X_i\)</span> <span class="math display">\[\eta_i = \beta_0 + \beta_1\cdot sex^{male}_i + \beta_2\cdot FL_i + \beta_3 \cdot RW_i + \beta_4 \cdot CL_i + \beta_5 \cdot CW_i + \beta_6 \cdot BD_i \]</span> Parameters are interpreted in the usual fashion: they represent the effect of a specific variable on the log-odds ratio.</p>
-</div>
-<div id="the-likelihood-to-maximize" class="section level1">
-<h1>The likelihood to maximize</h1>
-<p>By assuming the independence among crabs we can write the likelihood as follows <span class="math display">\[ \mathcal{L}(\beta;Y,X) = \prod_{i=1}^{200}{P(Y=y_i|X=X_i)}=\prod_{i=1}^{200}{p_i^{y_i}(1-p_i)^{1-y_i}}=\]</span> <span class="math display">\[=\prod_{i=1}^{200}{\left[\frac{\exp{\left\lbrace\eta_i\right\rbrace}}{1+\exp{\left\lbrace\eta_i\right\rbrace}}\right]^{y_i}\left[\frac{1}{1+\exp{\left\lbrace\eta_i\right\rbrace}}\right]^{1-y_i}}=\prod_{i=1}^{200}{\exp{\left\lbrace\eta_i\right\rbrace}^{y_i}}\frac{1}{1+\exp{\left\lbrace\eta_i\right\rbrace}}\]</span> Usually, the function to maximize is the logarithm of the likelihood, that is <span class="math inline">\(\log{\mathcal{L}(\beta;Y,X)}\)</span>, <span class="math display">\[ \log{\mathcal{L}(\beta;Y,X)} =\sum_{i=1}^{200}{\left[y_i\eta_i-\log(1+\exp{\left\lbrace\eta_i\right\rbrace})\right]} \]</span></p>
-</div>
-<div id="lets-get-our-hands-dirty-with-coding" class="section level1">
-<h1>Let’s get our hands dirty with coding</h1>
-<p>Statistician are asked to provide a package such that scholars can run the analysis whenever they want by using simple functions. Thus, they need to provide the following functions:</p>
-<ul>
-<li><code>model_matrix</code> (used to create the design matrix given the data frame, that is <span class="math inline">\(\eta\)</span>);</li>
-<li><code>loglikelihood</code> (as it says);</li>
-<li><code>logistic_reg</code> (finds the vector of <span class="math inline">\(\beta\)</span>’s that maximizes the loglikelihood);</li>
-<li><code>summary.logistic_reg</code> (print the summary of the model: maximum likelihood estimates, standard errors, odds ratios, deviance);</li>
-<li><code>plot.logistic_reg</code> (plot some typical diagnostics for the logistic regression).</li>
-</ul>
-<div id="model_matrix" class="section level3">
-<h3><code>model_matrix</code></h3>
-<pre class="r"><code>create_contrast &lt;- function(covariate) { #we'll consider the first level as baseline
-     contrasts_cov &lt;- contrasts(covariate)
-     return(t(sapply(as.numeric(covariate), function(x) contrasts_cov[x,])))
-}
-
-model_matrix &lt;- function(data) {
-  if(!is.data.frame(data)) stop(&quot;the input 'data' is not a data frame&quot;)
-  
-  column_classes &lt;- unlist(lapply(data,class))
-  column_fact_char_log &lt;- which(column_classes == &quot;factor&quot; | column_classes == &quot;character&quot; | column_classes == &quot;logical&quot;)
-  column_numbers &lt;- setdiff(1:dim(data)[1],column_fact_char_log)
-  
-  data_fact_char_log &lt;- NULL
-  if(length(column_fact_char)!=0) {
-    for(i in 1:length(column_fact_char_log)) {
-      data_fact_char_log &lt;- cbind(data_fact_char_log,
-                                  create_contrast(data[,column_fact_char_log[i]]))
-    }
-  }
-  
-  data_numbers &lt;- NULL
-  if(length(column_numbers)!=0) {
-    data_numbers &lt;- data[,column_numbers]
-  }
-  return(cbind(data_fact_char_log,data_numbers))
-}</code></pre>
-</div>
 </div>
 
 

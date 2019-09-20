@@ -4,7 +4,115 @@ author: ""
 date: ""
 output: html_document
 ---
+### The Ordinary non-parametric bootstrap
+A programmer is requested to write a R package that allows user to carry out a bootstrap analysis on whatever statistic of interest given the dataset. The package will have to focus on the ordinary non-parametric bootstrapping procedure, i.e. the very basic one.
 
+### Functions to be provided inside the package
+
+The programmer will have to provide:
+
+  1. several _statistics of interest_ that the user might need in the analysis:
+    * `get_mean`;
+    * `get_correlation`;
+    * `get_coefficient_of_variation`;
+    * `get_index_of_homogeneity`;
+  2. the _main function_ `get_bootstrap`, that runs the bootstrap simulation and where functions above will be used;
+  3. additional functions like `summary.get_bootstrap` and `plot.get_bootstrap` in order to respectively obtain a summary of the results and plots.
+ 
+### Let's get our hands dirty with coding
+
+#### 1. **_Statistics of interest_**
+
+  - `get_mean`
+```{r}
+get_mean <- function(data, indices, weights = NULL) {
+  
+  if(!is.null(weights)) {weights <- weights[indices]/sum(weights[indices])}
+  else {weights <- rep(1/length(data[indices]),length(data[indices]))}
+  return(sum(data[indices]*weights))
+}
+```
+  - `get_pearson_correlation` 
+```{r}
+get_pearson_correlation <- function(data, indices, weights = NULL) {
+
+  if(!is.null(weights)) {weights <- weights[indices]/sum(weights[indices])}
+  else {weights <- rep(1/dim(data[indices,])[1],dim(data[indices,])[1])}
+    
+  mean_prods <- sum(apply(data[indices,], 1, prod)*weights)
+  prod_means <- prod(apply(data[indices,], 2, function(x) get_mean(data = x, weights = weights)))
+  standard_deviations <- apply(data[indices,], 2, function(x)   get_mean(data = x^2, weights = weights)-
+                                 get_mean(data = x, weights = weights)^2)^0.5
+  
+  return((mean_prods - prod_means)/prod(standard_deviations))
+}
+```
+  - `get_coefficient_of_variation`
+```{r}
+get_coefficient_of_variation <- function(data, indices, weights = NULL) {
+
+  if(!is.null(weights)) {weights <- weights[indices]/sum(weights[indices])}
+  else {weights <- rep(1/length(data[indices]),length(data[indices]))}
+    
+  m <- get_mean(data = data[indices], weights = weights)
+  m2 <- get_mean(data = data[indices]^2, weights = weights)
+  sd <- (m2-m^2)^0.5
+  return(sd/m)
+}
+```
+  - `get_index_of_homogeneity`
+```{r}
+get_index_of_homogeneity <- function(data, indices) {
+
+  if(!is.factor(data)) {stop("the input variable must be a factor with levels specified")}
+  K <- length(levels(data))
+  index_unnormalized <- 1 - sum(as.vector(prop.table(table(data[indices])))^2)
+  return(index_unnormalized*(K/(K-1)))
+}
+```
+#### 2. **_The main function_**
+```{r}
+get_bootstrap <- function(data,
+                          statistic,
+                          R,
+                          parallel = FALSE,
+                          ncpus = NULL,
+                          ...) {
+  n <- NROW(data)
+  indices <- 1:n
+  
+  R_samples <- matrix(sample(1:n,n*R,replace=T), nrow = n, ncol = R)
+  if(parallel) {
+    if(is.null(ncpus)) {stop("The number of cpu's to use must be specified")}
+    cl <- makeCluster(ncpus)
+    e <- new.env()
+    e$statistic <- statistic
+    e$data <- data
+    e$R_samples <- R_samples
+    # exporting objects from 'local' environment()
+    clusterExport(cl, envir = e, c("statistic",
+                                   "data",
+                                   "R_samples"
+                                    ))
+    boot_sim <- unlist(parallel::parLapply(cl = cl, as.list(1:dim(R_samples)[2]), 
+                                           function(x) statistic(data = data,
+                                                                 indices = R_samples[,x],
+                                                                  ...)))
+    stopCluster(cl)
+    #do nothing for now (code later)
+  }
+  
+  else {
+    boot_sim <- apply(R_samples, 2, function(x) statistic(data = data, indices = x, ...))
+  }
+  
+  #return output
+  return(boot_sim)
+}
+```
+
+    
+    
 ### The data frame
 First of all, let's have a look into the data structure, which our regressors are and which outcome we are interested in.
 
