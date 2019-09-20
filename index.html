@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- From `vue`. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="favicon.ico">
+
+        <!-- From `reveal`. -->
+        <meta name="description" content="Presentation">
+        <meta name="author" content="M. A. Constantin">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <!-- Styles for `reveal` -->
+        <link rel="stylesheet" href="lib/reveal/css/reset.css">
+        <link rel="stylesheet" href="lib/reveal/css/reveal.css">
+        <link rel="stylesheet" href="lib/reveal/css/theme/white.css" id="theme">
+        <link rel="stylesheet" href="lib/reveal/lib/css/monokai.css">
+        
+        <title>Presentation</title>
+        
+        <script src="lib/vue/vue.min.js"></script>
+        <script src="lib/vuex/vuex.min.js"></script>
+        <script src="lib/http-vue-loader/httpVueLoader.js"></script>
+        <script src="lib/reveal/js/reveal.js"></script>
+    </head>
+
+    <body>
+        <!-- No script notice. -->
+        <noscript><strong>We're sorry but this presentation doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
+
+        <div id="presentation"></div>
+
+        <!-- Initialize the libraries. -->
+        <script type="module" src="lib/presentation.js"></script>
+    </body>
+
+</html>
