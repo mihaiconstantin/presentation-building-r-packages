@@ -17,7 +17,7 @@
             </div>
 
             <!-- Second column. -->
-            <div class="canvas shadow-md canvas-right" :class="{ fragment: fragment }">
+            <div class="canvas shadow-md canvas-right" :class="[{ fragment: fragment }, rightFragment ]">
                 <!-- Content. -->
                 <div class="content content-right">
                     <slot name="right">Right column content here.</slot>
@@ -47,6 +47,11 @@
             fragment: {
                 default: false,
                 type: Boolean
+            },
+
+            rightFragment: {
+                default: "fade-up",
+                type: String
             }
         }
     }
