@@ -16,6 +16,7 @@
             <!-- Slides -->
 
             <!-- Overview of the toolchain. -->
+            <tools></tools>
 
             <!-- Skeleton of an R package. -->
 
@@ -41,7 +42,8 @@
             'presentation-footer': httpVueLoader('./slides/decorations/Footer.vue'),
             'introduction': httpVueLoader('./slides/Introduction.vue'),
             'motivation': httpVueLoader('./slides/Motivation.vue'),
-            'outline': httpVueLoader('./slides/Outline.vue')
+            'outline': httpVueLoader('./slides/Outline.vue'),
+            'tools': httpVueLoader('./slides/Tools.vue')
         },
 
         mounted() {
