@@ -36,4 +36,15 @@
 
 
 
-<style scoped></style>
+<style scoped>
+    .canvas {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .content {
+        flex: 1;
+        display: flex;
+        flex-flow: column;
+    }
+</style>

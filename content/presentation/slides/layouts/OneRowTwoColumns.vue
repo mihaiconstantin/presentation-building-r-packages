@@ -92,4 +92,17 @@
     .layout-wrapper > .canvas-right {
         margin-left: .75rem;
     }
+
+    .layout-wrapper > .canvas-left,
+    .layout-wrapper > .canvas-right {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .layout-wrapper > .canvas-left > .content-left,
+    .layout-wrapper > .canvas-right > .content-right {
+        flex: 1;
+        display: flex;
+        flex-flow: column;
+    }
 </style>
