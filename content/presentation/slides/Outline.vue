@@ -24,11 +24,11 @@
                 title: "Workshop outline",
 
                 agenda: [
-                    "Overview of the tools needed to build packages",
-                    "The anatomy of an `R` package",
-                    "Example of combinding the tools into an workflow",
-                    "Getting our hands dirty with code",
-                    "Some curated resources"
+                    "overview of the tools needed to build packages",
+                    "the anatomy of an `R` package",
+                    "example of combinding the tools into an workflow",
+                    "getting our hands dirty with code",
+                    "some curated resources"
                 ]
             }
         }
