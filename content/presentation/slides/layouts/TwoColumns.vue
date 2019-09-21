@@ -6,7 +6,7 @@
             <pins :top-right="!fragment" :bottom-right="!fragment"></pins>
 
             <!-- First column. -->
-            <div class="canvas shadow-md">
+            <div class="canvas shadow-md canvas-left">
                 <!-- Title. -->
                 <h3 class="title ribbon ribbon-left">{{ title }}</h3>
 
@@ -17,7 +17,7 @@
             </div>
 
             <!-- Second column. -->
-            <div class="canvas shadow-md" :class="{ fragment: fragment }">
+            <div class="canvas shadow-md canvas-right" :class="{ fragment: fragment }">
                 <!-- Content. -->
                 <div class="content content-right">
                     <slot name="right">Right column content here.</slot>
@@ -63,11 +63,11 @@
         flex: 1;
     }
 
-    .layout-wrapper > .canvas:first-of-type {
+    .layout-wrapper > .canvas-left {
         margin-right: .75rem;
     }
 
-    .layout-wrapper > .canvas:last-of-type {
+    .layout-wrapper > .canvas-right {
         margin-left: .75rem;
     }
 </style>
