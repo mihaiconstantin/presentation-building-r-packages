@@ -59,6 +59,10 @@
     line-height: inherit;
 }
 
+.canvas .content ul li:not(:last-of-type) {
+    margin-bottom: 1.5rem;
+}
+
 
 
 /* Utilities. */
