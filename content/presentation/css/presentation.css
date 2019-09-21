@@ -59,7 +59,8 @@
     line-height: inherit;
 }
 
-.canvas .content ul li:not(:last-of-type) {
+.canvas .content ul li:not(:last-of-type),
+.canvas .content ol li:not(:last-of-type) {
     margin-bottom: 1.5rem;
 }
 
