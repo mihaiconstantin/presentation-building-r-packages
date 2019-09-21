@@ -149,6 +149,7 @@
 }
 
 
+
 /* 
  * Ribbon and positioning.
  * Credits: https://codepen.io/ajimix/pen/sDret
@@ -181,4 +182,23 @@
 .ribbon-left.ribbon::before {
     left: 0;
     border-left: 28px solid transparent;
+}
+
+
+
+/*
+ * Slow rotation animation.
+ */
+
+ @keyframes slow-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.slow-rotate {
+    animation: slow-rotate 180s linear infinite;
 }
