@@ -50,10 +50,6 @@
 
     .logo {
         width: 80px;
-        margin: 0;
-        padding: .5rem;
-        background-color: transparent;
-        border: 0;
-        border-radius: .5rem;
+        margin: 0 auto;
     }
 </style>
