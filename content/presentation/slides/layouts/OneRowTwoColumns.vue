@@ -17,7 +17,7 @@
         <!-- Wrapper for the columns. -->
         <div class="layout-wrapper">
             <!-- First column. -->
-            <div class="canvas shadow-md canvas-left" :class="{ fragment: fragment }">
+            <div class="canvas shadow-md canvas-left" :class="[{ fragment: fragment }, leftFragment ]">
                 <!-- Content. -->
                 <div class="content content-left">
                     <slot name="left">Left column content here.</slot>
@@ -25,7 +25,7 @@
             </div>
 
             <!-- Second column. -->
-            <div class="canvas shadow-md canvas-right" :class="{ fragment: fragment }">
+            <div class="canvas shadow-md canvas-right" :class="[{ fragment: fragment }, rightFragment ]">
                 <!-- Content. -->
                 <div class="content content-right">
                     <slot name="right">Right column content here.</slot>
@@ -55,6 +55,16 @@
             fragment: {
                 default: false,
                 type: Boolean
+            },
+
+            leftFragment: {
+                default: "fade-right",
+                type: String
+            },
+
+            rightFragment: {
+                default: "fade-left",
+                type: String
             }
         }
     }
