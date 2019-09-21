@@ -2,7 +2,7 @@
     <layout :title="title" :fragment="true">
 
         <!-- Row content. -->
-        <div slot="row" class="slot-content text-center">
+        <div slot="row" class="slot-content-row text-center">
             <p class="message">
                 perhaps the most complicated part of developing and R package is <span class="highlight">setting-up the tools correctly</span>
             </p>
@@ -10,7 +10,7 @@
 
 
         <!-- Left column content. -->
-        <div slot="left" class="slot-content">
+        <div slot="left" class="slot-content-left">
             <!-- Section subtitle. -->
             <h4>The bare minimum we need:</h4>
 
@@ -23,7 +23,7 @@
         </div>
 
         <!-- Right column content. -->
-        <div slot="right" class="slot-content">
+        <div slot="right" class="slot-content-right">
             <!-- Section subtitle. -->
             <h4>Optional, but handy:</h4>
 
@@ -70,21 +70,24 @@
 
 
 <style scoped>
-    .slot-content .message {
+    .slot-content-row .message {
         line-height: 3.5rem;
         margin: 0;
     }
 
-    .slot-content .tools {
+    .slot-content-left .tools,
+    .slot-content-right .tools {
         list-style-type: none;
     }
 
-    .slot-content .tool-name, .slot-content .tool-version {
+    .slot-content-left .tool-name, .slot-content-left .tool-version,
+    .slot-content-right .tool-name, .slot-content-right .tool-version {
         font-family: 'Courier New', Courier, monospace;
         font-weight: bold;
     }
 
-    .slot-content .tool-version {
+    .slot-content-left .tool-version,
+    .slot-content-right .tool-version {
         font-size: .9rem;
         color: gray;
     } 
