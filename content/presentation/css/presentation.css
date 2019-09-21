@@ -1,0 +1,184 @@
+/* DEVELOPMENT styles. */
+
+.w { border: 3px solid white; }
+.b { border: 3px solid black; }
+.s { border: 3px solid silver; }
+.r { border: 3px solid red; }
+.o { border: 3px solid orange; }
+.y { border: 3px solid yellow; }
+.g { border: 3px solid green; }
+.t { border: 3px solid blue; }
+.i { border: 3px solid indigo; }
+.v { border: 3px solid violet; }
+.p { border: 3px solid pink; }
+
+
+
+/* Reveal layout customizations. */
+
+.reveal .slides > section,
+.reveal .slides > section > section,
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+} 
+
+.reveal h3 {
+    font-size: 2rem;
+}
+
+.reveal .slides > section,
+.reveal .slides > section > section {
+    font-size: 1.4rem;
+    text-align: left;
+}
+
+.reveal .slide-number {
+    border-radius: .3rem;
+}
+
+.reveal .slide-number > a {
+    color: white;
+}
+
+
+
+/* Targeting multiple slides. */
+
+.canvas {
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: .5rem;
+}
+
+.canvas > .title {
+    display: inline-block;
+    margin-left: -51px;
+    width: auto;
+    min-width: 30%;
+    color: white;
+    line-height: inherit;
+}
+
+
+
+/* Utilities. */
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.shadow-md {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+
+
+/* Agnostics */
+
+/* 
+ * Post-it pin and positions.
+ * Credits: https://codepen.io/joshnh/pen/shHbJ
+ */
+.pin {
+    background: #aaa linear-gradient(to left, hsla(0, 0%, 100%, .2), hsla(0, 0%, 0%, .2));
+    display: block;
+    height: 2rem;
+    margin: -1rem -.05rem;
+    position: absolute;
+    width: .1rem;
+}
+
+.pin::before {
+    background-color: hsla(0,0%,0%,.1);
+    box-shadow: 0 0 .25rem hsla(0,0%,0%,.1);
+    content: '';
+    height: 1.5rem;
+    left: 0;
+    position: absolute;
+    top: .3rem;
+    transform: rotate(57.5deg);
+    transform-origin: 50% 100%;
+    width: .1rem;
+}
+
+.pin::after {
+    background: #ffc107 radial-gradient(circle at 25% 25%, hsla(0, 0%, 100%, .2), hsla(0, 0%, 0%, .2));
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px hsla(0,0%,0%,.1),
+                inset .2rem .2rem .2rem hsla(0,0%,100%,.2),
+                inset -.2rem -.2rem .2rem hsla(0,0%,0%,.2),
+                1.5rem 1.25rem .25rem hsla(0,0%,0%,.15);
+    content: '';
+    height: .8rem;
+    left: -.35rem;
+    position: absolute;
+    top: -.65rem;
+    width: .8rem;
+}
+
+.pin-top-left {
+    top: 2rem;
+    left: 1rem;
+    transform: rotate(-10deg);
+}
+
+.pin-top-right {
+    top: 2rem;
+    right: 1rem;
+    transform: rotate(10deg);
+}
+
+.pin-bottom-left {
+    bottom: 2rem;
+    left: 1rem;
+    transform: rotate(-160deg);
+}
+
+.pin-bottom-right {
+    bottom: 2rem;
+    right: 1rem;
+    transform: rotate(160deg);
+}
+
+
+/* 
+ * Ribbon and positioning.
+ * Credits: https://codepen.io/ajimix/pen/sDret
+ */
+.ribbon {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);    
+    position: relative;
+    padding: .2rem 1rem;
+    font-size: 1.3rem;
+    color: #fff;
+    background: steelblue;
+    border-radius: 0 .3rem .3rem 0;
+}
+
+.ribbon::before {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: 100%;
+    border-top: 6px solid steelblue;
+    z-index: -1;
+}
+
+.ribbon-right.ribbon::before {
+    right: 0;
+    border-right: 28px solid transparent;
+}
+
+.ribbon-left.ribbon::before {
+    left: 0;
+    border-left: 28px solid transparent;
+}
