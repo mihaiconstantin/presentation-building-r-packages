@@ -75,11 +75,11 @@
         flex: 1;
     }
 
-    .layout-wrapper > .canvas:first-of-type {
+    .layout-wrapper > .canvas-left {
         margin-right: .75rem;
     }
 
-    .layout-wrapper > .canvas:last-of-type {
+    .layout-wrapper > .canvas-right {
         margin-left: .75rem;
     }
 </style>
