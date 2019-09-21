@@ -5,6 +5,7 @@
 
         <div class="slides">
             <!-- Title slide. -->
+            <introduction></introduction>
 
             <!-- Motivation. -->
 
@@ -35,7 +36,8 @@
         name: "presentation",
 
         components: {
-            'presentation-footer': httpVueLoader('./slides/decorations/Footer.vue')
+            'presentation-footer': httpVueLoader('./slides/decorations/Footer.vue'),
+            'introduction': httpVueLoader('./slides/Introduction.vue')
         },
 
         mounted() {
