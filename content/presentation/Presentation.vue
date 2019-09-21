@@ -11,6 +11,7 @@
             <motivation></motivation>
 
             <!-- Outline. -->
+            <outline></outline>
 
             <!-- Slides -->
 
@@ -39,7 +40,8 @@
         components: {
             'presentation-footer': httpVueLoader('./slides/decorations/Footer.vue'),
             'introduction': httpVueLoader('./slides/Introduction.vue'),
-            'motivation': httpVueLoader('./slides/Motivation.vue')
+            'motivation': httpVueLoader('./slides/Motivation.vue'),
+            'outline': httpVueLoader('./slides/Outline.vue')
         },
 
         mounted() {
