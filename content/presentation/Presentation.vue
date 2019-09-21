@@ -8,6 +8,7 @@
             <introduction></introduction>
 
             <!-- Motivation. -->
+            <motivation></motivation>
 
             <!-- Outline. -->
 
@@ -37,7 +38,8 @@
 
         components: {
             'presentation-footer': httpVueLoader('./slides/decorations/Footer.vue'),
-            'introduction': httpVueLoader('./slides/Introduction.vue')
+            'introduction': httpVueLoader('./slides/Introduction.vue'),
+            'motivation': httpVueLoader('./slides/Motivation.vue')
         },
 
         mounted() {
