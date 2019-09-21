@@ -15,17 +15,20 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
         <!-- Styles for `reveal` -->
-        <link rel="stylesheet" href="lib/reveal/css/reset.css">
-        <link rel="stylesheet" href="lib/reveal/css/reveal.css">
-        <link rel="stylesheet" href="lib/reveal/css/theme/white.css" id="theme">
-        <link rel="stylesheet" href="lib/reveal/lib/css/monokai.css">
+        <link rel="stylesheet" href="content/presentation/lib/reveal/css/reset.css">
+        <link rel="stylesheet" href="content/presentation/lib/reveal/css/reveal.css">
+        <link rel="stylesheet" href="content/presentation/lib/reveal/css/theme/simple.css" id="theme">
+        <link rel="stylesheet" href="content/presentation/lib/reveal/lib/css/monokai.css">
+        <link rel="stylesheet" href="content/presentation/css/presentation.css">
         
         <title>Presentation</title>
         
-        <script src="lib/vue/vue.min.js"></script>
-        <script src="lib/vuex/vuex.min.js"></script>
-        <script src="lib/http-vue-loader/httpVueLoader.js"></script>
-        <script src="lib/reveal/js/reveal.js"></script>
+        <!-- <script src="lib/vue/vue.min.js"></script> -->
+        <script src="content/presentation/lib/vue/vue.js"></script>
+        <script src="content/presentation/lib/vuex/vuex.js"></script>
+        <!-- <script src="lib/vuex/vuex.min.js"></script> -->
+        <script src="content/presentation/lib/http-vue-loader/httpVueLoader.js"></script>
+        <script src="content/presentation/lib/reveal/js/reveal.js"></script>
     </head>
 
     <body>
@@ -35,7 +38,7 @@
         <div id="presentation"></div>
 
         <!-- Initialize the libraries. -->
-        <script type="module" src="lib/presentation.js"></script>
+        <script type="module" src="content/presentation/js/presentation.js"></script>
     </body>
 
 </html>
