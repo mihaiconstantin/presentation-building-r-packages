@@ -39,7 +39,6 @@
     }
 
     code {
-        font-family: 'Courier New', Courier, monospace;
         zoom: 1.3;
     }
 
