@@ -33,7 +33,7 @@
                 items: [
                     "open-source lightweight code editor",
                     "large number of extensions (i.e., including <code>R</code>)",
-                    "wide language support, e.g., <code>C++</code>, <code>LaTex</code>, <code>Python</code> etc.",
+                    "wide language support, e.g., <code>C++</code>, <code>LaTeX</code>, <code>Python</code> etc.",
                     "good for productivity"
                 ]
             }
