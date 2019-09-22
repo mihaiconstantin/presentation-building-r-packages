@@ -11,7 +11,7 @@
                 <li class="fragment"><code>*</code><span class="recommendation"> &rarr; you may also create your own folders</span></li>
             </ul>
         </div>
-<!-- class="fragment" data-fragment-index="2" -->
+
         <!-- Right content. -->
         <div slot="right" class="slot-content-right">
             <img :src="img" alt="Tests folder" class="img-zoom" style="--factor: 2; --origin: top right">
