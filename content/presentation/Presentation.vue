@@ -18,7 +18,11 @@
             <!-- Overview of the toolchain. -->
             <tools></tools>
 
+            <!-- Installation check. -->
+            <installation></installation>
+
             <!-- Skeleton of an R package. -->
+            <anatomy></anatomy>
 
             <!-- Example of an workflow. -->
 
@@ -43,7 +47,9 @@
             'introduction': httpVueLoader('./slides/Introduction.vue'),
             'motivation': httpVueLoader('./slides/Motivation.vue'),
             'outline': httpVueLoader('./slides/Outline.vue'),
-            'tools': httpVueLoader('./slides/Tools.vue')
+            'tools': httpVueLoader('./slides/Tools.vue'),
+            'installation': httpVueLoader('./slides/Installation.vue'),
+            'anatomy': httpVueLoader('./slides/Anatomy.vue')
         },
 
         mounted() {
