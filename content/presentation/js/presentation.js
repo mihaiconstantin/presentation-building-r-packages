@@ -6,7 +6,7 @@ import { revealConfig } from './config.js';
 import store from './store.js';
 
 // Load the template.
-const Presentation = httpVueLoader('../content/presentation/Presentation.vue');
+const Presentation = httpVueLoader('content/presentation/Presentation.vue');
 
 
 // Initialize `vue` instance.

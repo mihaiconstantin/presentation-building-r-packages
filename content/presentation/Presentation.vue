@@ -1,18 +1,39 @@
 <template>
     <div id="presentation" class="reveal">
         <!-- Header. -->
+        <!-- To be added if needed. -->
 
         <div class="slides">
             <!-- Title slide. -->
+            <introduction></introduction>
+
+            <!-- Motivation. -->
+            <motivation></motivation>
 
             <!-- Outline. -->
+            <outline></outline>
 
             <!-- Slides -->
-            <section class="title">HTML slide</section>
-            <slide></slide>
+
+            <!-- Overview of the toolchain. -->
+            <tools></tools>
+
+            <!-- Installation check. -->
+            <installation></installation>
+
+            <!-- Skeleton of an R package. -->
+            <anatomy></anatomy>
+
+            <!-- Example of an workflow. -->
+            <workflow></workflow>
+
+            <!-- Getting our hands dirty. -->
+
+            <!-- Resources. -->
         </div>
 
         <!-- Footer. -->
+        <presentation-footer></presentation-footer>
     </div>
 </template>
 
@@ -22,11 +43,16 @@
     module.exports = {
         name: "presentation",
 
-
         components: {
-            slide: httpVueLoader('./slides/Slide.vue')
+            'presentation-footer': httpVueLoader('./slides/decorations/Footer.vue'),
+            'introduction': httpVueLoader('./slides/Introduction.vue'),
+            'motivation': httpVueLoader('./slides/Motivation.vue'),
+            'outline': httpVueLoader('./slides/Outline.vue'),
+            'tools': httpVueLoader('./slides/Tools.vue'),
+            'installation': httpVueLoader('./slides/Installation.vue'),
+            'anatomy': httpVueLoader('./slides/Anatomy.vue'),
+            'workflow': httpVueLoader('./slides/Workflow.vue')
         },
-
 
         mounted() {
             this.$nextTick(function() {
@@ -38,11 +64,4 @@
 
 
 
-<style scoped>
-    .title {
-        background-color: rgba(0, 0, 0, 0.30);
-        /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
-        /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); */
-    }
-
-</style>
+<style></style>
