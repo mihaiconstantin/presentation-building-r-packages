@@ -40,6 +40,7 @@
 
     code {
         zoom: 1.3;
+        color: #B07E03;
     }
 
     .authors {
