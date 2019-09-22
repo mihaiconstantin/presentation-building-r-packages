@@ -14,7 +14,7 @@ We can divide the work into two steps:
 
 ## **1. Package creation**
 ### A package about the Ordinary non-parametric bootstrap
-You are requested to write a R package (`BootYourName`) that allows users to carry out a bootstrap analysis on the t statistic to test for equal means. The package will have to focus on the ordinary non-parametric bootstrapping procedure, i.e. the very basic one, and it will finally have to compare the bootstrap results with the theoretical ones (approximation of the statistic distribution to a Student t with specific degrees of freedom).
+You are requested to write a R package (`footstrap`) that allows users to carry out a bootstrap analysis on the t statistic to test for equal means. The package will have to focus on the ordinary non-parametric bootstrapping procedure, i.e. the very basic one, and it will finally have to compare the bootstrap results with the theoretical ones (approximation of the statistic distribution to a Student t with specific degrees of freedom).
 
 ### Functions to be provided inside the package
 
@@ -113,9 +113,9 @@ plot.boot <- function(boot, breaks = 50, ...) {
 
     
 ## **2. Package testing**   
-Let's load our new package `BootYourName` and run the examples in the codes below
+Let's load our new package `footstrap` and run the examples in the codes below
 ```{r, message=FALSE,warning=FALSE}
-#library(BootYourName)
+#library(footstrap)
 ```
 
 #### **Example 1** model = `speed ~ dist`, dataset `cars` (sample size = 50)
