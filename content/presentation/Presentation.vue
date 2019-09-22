@@ -25,6 +25,7 @@
             <anatomy></anatomy>
 
             <!-- Example of an workflow. -->
+            <workflow></workflow>
 
             <!-- Getting our hands dirty. -->
 
@@ -49,7 +50,8 @@
             'outline': httpVueLoader('./slides/Outline.vue'),
             'tools': httpVueLoader('./slides/Tools.vue'),
             'installation': httpVueLoader('./slides/Installation.vue'),
-            'anatomy': httpVueLoader('./slides/Anatomy.vue')
+            'anatomy': httpVueLoader('./slides/Anatomy.vue'),
+            'workflow': httpVueLoader('./slides/Workflow.vue')
         },
 
         mounted() {
