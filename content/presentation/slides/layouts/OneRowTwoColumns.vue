@@ -81,10 +81,6 @@
         display: flex;
     }
 
-    .layout-wrapper .canvas {
-        flex: 1;
-    }
-
     .layout-wrapper .canvas-left {
         margin-right: .75rem;
     }
@@ -95,6 +91,7 @@
 
     .layout-wrapper .canvas-left,
     .layout-wrapper .canvas-right {
+        flex: 1;
         display: flex;
         flex-flow: column;
     }
