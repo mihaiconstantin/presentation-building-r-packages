@@ -1,5 +1,5 @@
 <template>
-    <layout :title="title" :fragment="false">
+    <layout :title="title" :fragment="true">
         <!-- Top row. -->
         <div slot="row" class="slot-content-row">
             <h4>Few words about <code class="highlight">devtools</code>...</h4>
@@ -18,9 +18,11 @@
 
             <hr class="hr-stretch">
 
-            <div class="additional-information">
-                <p>
-                    The <code>create()</code> function will generate a folder (e.g., <code>foopkg</code>) where all the packge files are stored. This folder is where we will spend most of our time.
+            <div class="v additional-information">
+                <p class="s">
+                    The <code>create()</code> function will generate a folder (e.g., <code>foopkg</code>) where all the packge files are stored. 
+                    <br><br>
+                    This folder is where we will spend most of our time.
                 </p>
             </div>
         </div>

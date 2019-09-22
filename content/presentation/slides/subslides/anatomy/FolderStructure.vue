@@ -18,14 +18,15 @@
         <!-- Right content. -->
         <div slot="right" class="slot-content-right">
             <img :src="img" alt="Git check" class="img-zoom" style="--factor: 1.5">
+        </div>
 
-            <div class="additional-information">
-                <h4>Good to know:</h4>
-                <ul>
-                    <li>now it is a good time to locate the package folder and open it in <code>VS Code</code> or <code>RStudio</code></li>
-                    <li>we will generate the additional files and folders as we progress trough the workshop</li>
-                </ul>
-            </div>
+        <!-- Additional information. -->
+        <div slot="additional" class="slot-content-additional">
+            <h4>Good to know:</h4>
+            <ul>
+                <li>now it is a good time to locate the package folder and open it in <code>VS Code</code> or <code>RStudio</code></li>
+                <li>we will generate the additional files and folders as we progress trough the workshop</li>
+            </ul>
         </div>
     </layout>
 </template>
@@ -37,7 +38,7 @@
         name: "folder-structure",
 
         components: {
-            'layout': httpVueLoader('../../layouts/TwoColumns.vue'),
+            'layout': httpVueLoader('../../layouts/TwoColumnsAdditionalInformation.vue'),
         },
 
         data: () => {
@@ -71,21 +72,6 @@
         flex: 1.5 !important;
     }
 
-    .content-right {
-        justify-content: center;
-    }
-
-   .slot-content-right {
-        flex: 1;
-        display: flex;
-        flex-flow: column;
-        justify-content: space-between;
-    }
-
-    .additional-information {
-        font-size: .9rem;
-    }
-
     .additional-information h4 {
         margin-top: 1.5rem;
         margin-bottom: .5rem;
@@ -101,9 +87,5 @@
 
     ul {
         margin-left: 3.5rem;
-    }
-
-    img {
-        width: 100%;
     }
 </style>
