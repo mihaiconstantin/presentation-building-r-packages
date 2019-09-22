@@ -1,5 +1,5 @@
 <template>
-    <section class="creation" data-transition="convex">
+    <section class="anatomy" data-transition="convex">
         <creation></creation>
 
         <folder-structure></folder-structure>
