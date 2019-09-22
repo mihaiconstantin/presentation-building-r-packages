@@ -1,14 +1,14 @@
 <template>
     <section class="one-column-layout template">
-        <div class="canvas shadow-md">
+        <div class="b canvas shadow-md">
             <!-- Pins. -->
             <pins></pins>
 
             <!-- Title. -->
-            <h3 class="title ribbon ribbon-left">{{ title }}</h3>
+            <h3 class="p title ribbon ribbon-left">{{ title }}</h3>
 
             <!-- Content. -->
-            <div class="content">
+            <div class="p content">
                 <slot>Wide content here.</slot>
             </div>
         </div>
