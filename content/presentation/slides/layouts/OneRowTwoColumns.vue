@@ -81,26 +81,26 @@
         display: flex;
     }
 
-    .layout-wrapper > .canvas {
+    .layout-wrapper .canvas {
         flex: 1;
     }
 
-    .layout-wrapper > .canvas-left {
+    .layout-wrapper .canvas-left {
         margin-right: .75rem;
     }
 
-    .layout-wrapper > .canvas-right {
+    .layout-wrapper .canvas-right {
         margin-left: .75rem;
     }
 
-    .layout-wrapper > .canvas-left,
-    .layout-wrapper > .canvas-right {
+    .layout-wrapper .canvas-left,
+    .layout-wrapper .canvas-right {
         display: flex;
         flex-flow: column;
     }
 
-    .layout-wrapper > .canvas-left > .content-left,
-    .layout-wrapper > .canvas-right > .content-right {
+    .layout-wrapper .content-left,
+    .layout-wrapper .content-right {
         flex: 1;
         display: flex;
         flex-flow: column;

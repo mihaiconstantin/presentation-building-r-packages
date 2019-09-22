@@ -40,10 +40,12 @@
     .canvas {
         display: flex;
         flex-flow: column;
+        align-items: flex-start;
     }
 
     .content {
         flex: 1;
+        align-self: stretch;
         display: flex;
         flex-flow: column;
     }
