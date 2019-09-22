@@ -1,11 +1,18 @@
 <template>
     <section class="tools" data-transition="convex">
         <overview></overview>
+
         <r></r>
+
         <rtools></rtools>
+
         <git></git>
+
         <rstudio></rstudio>
+
         <vscode></vscode>
+
+        <keypoint></keypoint>
     </section>
 </template>
 
@@ -22,6 +29,7 @@
             'git': httpVueLoader('./subslides/tools/Git.vue'),
             'rstudio': httpVueLoader('./subslides/tools/RStudio.vue'),
             'vscode': httpVueLoader('./subslides/tools/VsCode.vue'),
+            'keypoint': httpVueLoader('./subslides/tools/KeyPoint.vue')
         }
     }
 </script>

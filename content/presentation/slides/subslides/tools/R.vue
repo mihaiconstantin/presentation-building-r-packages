@@ -26,14 +26,14 @@
 
         data: () => {
             return {
-                title: "`R` language for scripting",
+                title: "R language",
 
                 logo: "content/presentation/assets/img/r_logo.jpg",
 
                 items: [
                     "implement your methdology",
                     "run your simulations",
-                    "etc. etc."
+                    "etc."
                 ]
             }
         }
@@ -44,13 +44,17 @@
 
 <style scoped>
     /* Force different alignment from template. */
-    .content-right {
+    .layout-wrapper .content-right {
         align-items: center;
         justify-content: center;
     }
 
+    .layout-wrapper .canvas-right {
+        flex: 0 0 25% !important;
+    }
+
     .slot-content-right .tool-logo {
-        width: 150px;
+        width: 200px;
         margin: 0;
     }
 </style>
