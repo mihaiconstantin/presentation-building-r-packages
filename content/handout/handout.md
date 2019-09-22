@@ -1,1 +1,0 @@
-# Handout for the presentation.

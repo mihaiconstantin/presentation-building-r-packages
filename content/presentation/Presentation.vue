@@ -5,24 +5,24 @@
 
         <div class="slides">
             <!-- Title slide. -->
-            <introduction></introduction>
+            <!-- <introduction></introduction> -->
 
             <!-- Motivation. -->
-            <motivation></motivation>
+            <!-- <motivation></motivation> -->
 
             <!-- Outline. -->
-            <outline></outline>
+            <!-- <outline></outline> -->
 
             <!-- Slides -->
 
             <!-- Overview of the toolchain. -->
-            <tools></tools>
+            <!-- <tools></tools> -->
 
             <!-- Installation check. -->
-            <installation></installation>
+            <!-- <installation></installation> -->
 
             <!-- Skeleton of an R package. -->
-            <anatomy></anatomy>
+            <!-- <anatomy></anatomy> -->
 
             <!-- Example of an workflow. -->
             <workflow></workflow>
