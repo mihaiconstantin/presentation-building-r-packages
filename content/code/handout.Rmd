@@ -1,145 +1,142 @@
 ---
-title: "Introduction to building R Packages"
+title: ""
 author: ""
 date: ""
 output: html_document
 ---
-### The Ordinary non-parametric bootstrap
-A programmer is requested to write a R package that allows user to carry out a bootstrap analysis on whatever statistic of interest given the dataset. The package will have to focus on the ordinary non-parametric bootstrapping procedure, i.e. the very basic one.
+## **Introduction to building R Packages**
+
+Now it's time to let things more practical by creating our own package.
+We can divide the work into two steps: 
+
+  1. Package creation;
+  2. Package testing.
+
+## **1. Package creation**
+### A package about the Ordinary non-parametric bootstrap
+You are requested to write a R package (`BootYourName`) that allows users to carry out a bootstrap analysis on the t statistic to test for equal means. The package will have to focus on the ordinary non-parametric bootstrapping procedure, i.e. the very basic one, and it will finally have to compare the bootstrap results with the theoretical ones (approximation of the statistic distribution to a Student t with specific degrees of freedom).
 
 ### Functions to be provided inside the package
 
 The programmer will have to provide:
 
-  1. several _statistics of interest_ that the user might need in the analysis:
-    * `get_mean`;
-    * `get_correlation`;
-    * `get_coefficient_of_variation`;
-    * `get_index_of_homogeneity`;
+  1. The _statistic_ that the main function will need to run for each bootstrap sample:
+    * `get.lm`;
   2. the _main function_ `get_bootstrap`, that runs the bootstrap simulation and where functions above will be used;
   3. additional functions like `summary.get_bootstrap` and `plot.get_bootstrap` in order to respectively obtain a summary of the results and plots.
  
+Would you want to see the structure of the package in terms of dependencies we can consider the following chart,
+  `put here the flow diagram`
+  
 ### Let's get our hands dirty with coding
 
-#### 1. **_Statistics of interest_**
-
-  - `get_mean`
+#### 1. **_Statistic_**: `get.lm`
 ```{r}
-get_mean <- function(data, indices, weights = NULL) {
-  
-  if(!is.null(weights)) {weights <- weights[indices]/sum(weights[indices])}
-  else {weights <- rep(1/length(data[indices]),length(data[indices]))}
-  return(sum(data[indices]*weights))
+get.lm <- function(formula, data, indices) {
+  return(lm(formula=formula,data=data[indices,])$coef)
 }
 ```
-  - `get_pearson_correlation` 
-```{r}
-get_pearson_correlation <- function(data, indices, weights = NULL) {
 
-  if(!is.null(weights)) {weights <- weights[indices]/sum(weights[indices])}
-  else {weights <- rep(1/dim(data[indices,])[1],dim(data[indices,])[1])}
-    
-  mean_prods <- sum(apply(data[indices,], 1, prod)*weights)
-  prod_means <- prod(apply(data[indices,], 2, function(x) get_mean(data = x, weights = weights)))
-  standard_deviations <- apply(data[indices,], 2, function(x)   get_mean(data = x^2, weights = weights)-
-                                 get_mean(data = x, weights = weights)^2)^0.5
-  
-  return((mean_prods - prod_means)/prod(standard_deviations))
-}
-```
-  - `get_coefficient_of_variation`
+#### 2. **_The main function_**: `get.bootstrap`
 ```{r}
-get_coefficient_of_variation <- function(data, indices, weights = NULL) {
-
-  if(!is.null(weights)) {weights <- weights[indices]/sum(weights[indices])}
-  else {weights <- rep(1/length(data[indices]),length(data[indices]))}
-    
-  m <- get_mean(data = data[indices], weights = weights)
-  m2 <- get_mean(data = data[indices]^2, weights = weights)
-  sd <- (m2-m^2)^0.5
-  return(sd/m)
-}
-```
-  - `get_index_of_homogeneity`
-```{r}
-get_index_of_homogeneity <- function(data, indices) {
-
-  if(!is.factor(data)) {stop("the input variable must be a factor with levels specified")}
-  K <- length(levels(data))
-  index_unnormalized <- 1 - sum(as.vector(prop.table(table(data[indices])))^2)
-  return(index_unnormalized*(K/(K-1)))
-}
-```
-#### 2. **_The main function_**
-```{r}
-get_bootstrap <- function(data,
+get.bootstrap <- function(data,
                           statistic,
-                          R,
-                          parallel = FALSE,
-                          ncpus = NULL,
-                          ...) {
+                          replicates,
+                          formula) {
+  
   n <- NROW(data)
-  indices <- 1:n
   
-  R_samples <- matrix(sample(1:n,n*R,replace=T), nrow = n, ncol = R)
-  if(parallel) {
-    if(is.null(ncpus)) {stop("The number of cpu's to use must be specified")}
-    cl <- makeCluster(ncpus)
-    e <- new.env()
-    e$statistic <- statistic
-    e$data <- data
-    e$R_samples <- R_samples
-    # exporting objects from 'local' environment()
-    clusterExport(cl, envir = e, c("statistic",
-                                   "data",
-                                   "R_samples"
-                                    ))
-    boot_sim <- unlist(parallel::parLapply(cl = cl, as.list(1:dim(R_samples)[2]), 
-                                           function(x) statistic(data = data,
-                                                                 indices = R_samples[,x],
-                                                                  ...)))
-    stopCluster(cl)
-    #do nothing for now (code later)
-  }
+  # Creating random samples with replacement (size = data dimension)
+  samples <- matrix(sample(1:n,n*replicates,replace=T), nrow = replicates, ncol = n)
   
-  else {
-    boot_sim <- apply(R_samples, 2, function(x) statistic(data = data, indices = x, ...))
-  }
+  # Running bootstrap over samples
+  boot.sim <- t(apply(samples, 1, function(x) statistic(formula = formula, data = data, indices = x)))
   
-  #return output
-  return(boot_sim)
+  # Creating object out (output)
+  out <- list()
+  out$boot.sim <- boot.sim
+  out$obs.statistic <- statistic(formula = formula, data = data, indices = 1:n)
+  out$data <- data
+  out$formula <- formula
+  
+  # Define object class.
+  class(out) <- "boot"
+  return(out)
 }
 ```
-
-    
-    
-### The data frame
-First of all, let's have a look into the data structure, which our regressors are and which outcome we are interested in.
-
-```{r, message=FALSE,warning=FALSE}
-library(MASS)
-head(crabs)
+#### 3. **_Plotting and summing up the results_**
+####  - `summary.boot`
+```{r}
+summary.boot <- function(boot) {
+  
+  se.mle <- summary(lm(formula=boot$formula,data=boot$data))$coef[,2]
+  se.boot <- apply(boot$boot.sim,2,sd)
+  se.all <- cbind(se.mle,se.boot)
+  colnames(se.all) <- c("MLE","Bootstrap")
+  cat("Comparison between standard errors: \n")
+  print(se.all)
+}
 ```
-> **Description of the data frame** (_from the documentation_)  
-> The `crabs` data frame has 200 rows and 8 columns, describing 5 morphological measurements on 50 crabs each of two colour forms and both sexes, of the species _Leptograpsus variegatus_ collected at Fremantle, W. Australia.
+#### - `plot.boot`
+```{r}
+plot.boot <- function(boot, breaks = 50, ...) {
 
+  n.parameters <- dim(boot$boot.sim)[2]
+  # Creating plot template
+  require(grDevices)
+  par(mfrow=rev(n2mfrow(n.parameters)))
+  for(i in 1:n.parameters) {
+      hist(boot$boot.sim[,i],
+           breaks = breaks,
+           freq = FALSE, 
+           xlab = colnames(boot$boot.sim)[i], 
+           main = colnames(boot$boot.sim)[i], 
+           col = "papayawhip")
+      box()
+      abline(v=boot$obs.statistic[i],col="red",lwd=2,lty=2)
+      legend("topright",
+             legend=c("MLE"),
+             col=c("red"),
+             lwd=2,
+             lty=2,
+             ncol=1,
+             cex=0.8,
+             bty="n")
+  }
+  mtext("Bootstrap distributions",
+        side = 3,
+        line = -1,
+        outer = TRUE)
+}
 
-### The statistical unit
-The _statistical unit_ in the data frame is a _crab_. For each of the 200 crabs several morphological measurements were recorded, such as
+```
 
-* `FL`  : _Front Lobal Size_ (mm);
-* `RW`  : _Rear Width_ (mm);
-* `CL`  : _Carapace Length_ (mm);
-* `CW`  : _Carapace Width_ (mm);
-* `BD`  : _Body Depth_ (mm).
+    
+## **2. Package testing**   
+Let's load our new package `BootYourName` and run the examples in the codes below
+```{r, message=FALSE,warning=FALSE}
+#library(BootYourName)
+```
 
-Other than these, we also know
-
-* `sex` : `M` (_Male_), `F` (_Female_); 
-* `sp`  : _specie_, referring to the color forms, `B` for _blue_, `O` for _orange_.
-
-Finally, the `index` column assumes values in `1:50` within each of the four groups that result by the combination of the levels of `sex` and `sp` (specie). We won't use it in our analysis.
-
-### Goal of the research
-Both color forms had been classified as morphs of the _L. variegatus_. However, with genetic analysis and ecological studies, researchers found these two forms to be two distinct species. 
-Therefore, the need of developing a criteria for the identification of the specie.
+#### **Example 1** model = `speed ~ dist`, dataset `cars` (sample size = 50)
+```{r, message=FALSE,warning=FALSE}
+library(datasets)
+head(cars)
+example_1 <- get.bootstrap(data = cars, statistic = get.lm, replicates = 1e4, formula = speed ~ dist)
+plot(example_1)
+summary(example_1)
+```
+#### **Example 2** model = `weight ~ feed`, dataset `chickwts` (sample size = 71)
+```{r, message=FALSE,warning=FALSE}
+head(chickwts)
+example_2 <- get.bootstrap(data = chickwts, statistic = get.lm, replicates = 1e4, formula = weight ~ feed)
+plot(example_2)
+summary(example_2)
+```
+#### **Example 3** where `log(Volume) ~ log(Girth)`, dataset `trees` (sample size = 31)
+```{r, message=FALSE,warning=FALSE}
+head(trees)
+example_3 <- get.bootstrap(data = trees, statistic = get.lm, replicates = 1e4, formula = log(Volume) ~ log(Girth))
+plot(example_3)
+summary(example_3)
+```
