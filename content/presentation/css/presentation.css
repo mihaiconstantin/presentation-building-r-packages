@@ -12,6 +12,10 @@
 .v { border: 2px solid violet; }
 .p { border: 2px solid pink; }
 
+.w, .b, .s, .r, .o, .y, .g, .t, .i, .v, .p {
+    border-width: 2px;
+}
+
 
 
 /* Reveal layout customizations. */
