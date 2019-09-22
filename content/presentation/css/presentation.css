@@ -1,16 +1,16 @@
 /* DEVELOPMENT styles. */
 
-.w { border: 3px solid white; }
-.b { border: 3px solid black; }
-.s { border: 3px solid silver; }
-.r { border: 3px solid red; }
-.o { border: 3px solid orange; }
-.y { border: 3px solid yellow; }
-.g { border: 3px solid green; }
-.t { border: 3px solid blue; }
-.i { border: 3px solid indigo; }
-.v { border: 3px solid violet; }
-.p { border: 3px solid pink; }
+.w { border: 2px solid white; }
+.b { border: 2px solid black; }
+.s { border: 2px solid silver; }
+.r { border: 2px solid red; }
+.o { border: 2px solid orange; }
+.y { border: 2px solid yellow; }
+.g { border: 2px solid green; }
+.t { border: 2px solid blue; }
+.i { border: 2px solid indigo; }
+.v { border: 2px solid violet; }
+.p { border: 2px solid pink; }
 
 
 
@@ -74,6 +74,9 @@
     margin-bottom: 1.5rem;
 }
 
+.canvas code {
+    font-family: 'Courier New', Courier, monospace;
+}
 
 
 /* Utilities. */
