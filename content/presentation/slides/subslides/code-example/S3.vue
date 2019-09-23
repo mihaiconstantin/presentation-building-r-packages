@@ -4,12 +4,12 @@
         <div slot="top" class="slot-content-top">
             <ul>
                 <li>simply put, <code>OOP</code> is a way of organizing functions around objects (i.e., instances of particular classes)</li>
-                <li class="fragment"><code>R</code> provides <a href="https://adv-r.hadley.nz/oo.html">good support for the OOP paradigm</a>, althought different than other languages (e.g., <code>C++</code>)</li>
+                <li class="fragment"><code>R</code> provides <a href="https://adv-r.hadley.nz/oo.html">good support for the OOP paradigm</a>, yet different from other languages (e.g., <code>C++</code>)</li>
                 <li class="fragment">at least four <code>OOP</code> systems: 
                     <code>S3</code> <span class="small">(informal and most used)</span>, 
                     <code>S4</code> <span class="small">(formal)</span>,
                     <code>RC</code> <span class="small">(reference semantics)</span>,
-                    <code>R6</code> <span class="small">(our favourite)</span>
+                    <code>R6</code> <span class="small">(our favorite)</span>
                 </li>
             </ul>
         </div>

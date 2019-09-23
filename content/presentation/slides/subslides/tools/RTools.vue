@@ -4,7 +4,7 @@
         <div slot="left" class="slot-content-left">
             <ul>
                 <li v-for="(item, index) in items" :key="index">{{ item }}</li>
-                <li><code>C:\Rtools\bin</code> neeeds to be added to the <code>PATH</code></li>
+                <li><code>C:\Rtools\bin</code> needs to be added to the <code>PATH</code></li>
             </ul>
         </div>
 

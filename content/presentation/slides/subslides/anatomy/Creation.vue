@@ -4,7 +4,7 @@
         <div slot="row" class="slot-content-row">
             <h4>Few words about <code>devtools</code>...</h4>
             <ul>
-                <li>it is useful to get familiar with its <a href="https://cran.r-project.org/web/packages/devtools/devtools.pdf">documentation</a></li>
+                <li>it is useful to get familiar with the <a href="https://cran.r-project.org/web/packages/devtools/devtools.pdf">documentation</a></li>
                 <li v-for="(item, index) in topRowItems" :key="index" v-html="item"></li>
             </ul>
         </div>
@@ -20,9 +20,9 @@
 
             <div class="v additional-information">
                 <p class="s">
-                    The <code>create()</code> function will generate a folder (e.g., <code>foopkg</code>) where all the packge files are stored. 
+                    The <code>create()</code> function will generate a folder (e.g., <code>foopkg</code>) where all the package files are stored. 
                     <br><br>
-                    This folder is where we will spend most of our time.
+                    This folder is where you will spend most of your time.
                 </p>
             </div>
         </div>

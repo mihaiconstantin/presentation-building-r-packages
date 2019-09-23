@@ -11,7 +11,7 @@
         <!-- Bottom. -->
         <div slot="bottom" class="slot-content-bottom">
 
-<!-- Code that must remain in a wierd position. -->
+<!-- Code that must remain in a weird position. -->
 <pre><code class="hljs r" data-line-numbers>get.lm <- function(formula, data, indices) {
   return(lm(formula = formula, data = data[indices, ])$coef)
 }</code></pre>

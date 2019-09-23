@@ -23,7 +23,7 @@
                 <h4>Good to know:</h4>
                 <ul>
                     <li><code>RStudio</code> will warn you if <code>R</code> is not installed</li>
-                    <li>if <code>RStudio</code> prompts you to install <code>devtools</code> from source, politelty decline; otherwise it will take a while...</li>
+                    <li>if <code>RStudio</code> prompts you to install <code>devtools</code> from source, politely decline; otherwise it will take a while...</li>
                 </ul>
             </div>
         </div>

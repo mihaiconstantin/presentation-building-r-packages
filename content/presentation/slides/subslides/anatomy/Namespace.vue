@@ -15,8 +15,8 @@
 
         <!-- Additional content. -->
         <div slot="additional" class="slot-content-additional">
-            <p>The <code>roxygen2</code> package is one of the many packages <code>devtools</code> uses behind the sences. It is mainly used to 
-            simplify the process of documenting packages and importanting and exporting functions.</p>
+            <p>The <code>roxygen2</code> package is one of the many packages <code>devtools</code> uses behind the scenes. It is mainly used to 
+            simplify the process of documenting packages and importing and exporting functions.</p>
         </div>
     </layout>
 </template>
@@ -38,7 +38,7 @@
                 img: "content/presentation/assets/img/namespace.png",
 
                 items: [
-                    "namespaces are a fairly advanced topic",
+                    "name spaces are a fairly advanced topic",
                     "require a good understanding of the <code>search path</code>",
                     "related to <code>loading</code> and <code>attaching</code> packages",
                     "<code>NAMESPACE</code> lists all the exported and imported objects",

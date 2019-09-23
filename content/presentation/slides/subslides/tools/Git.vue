@@ -32,9 +32,9 @@
 
                 items: [
                     "used to version control your code",
-                    "makes colaborative development as breaze",
+                    "makes collaborative development as breeze",
                     "useful for keeping track of changes",
-                    "makes it easy for others to install your package"
+                    "easy for others to use your package"
                 ]
             }
         }

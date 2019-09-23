@@ -18,7 +18,7 @@
             <p>
                 By default, <code>R</code> loads the files within <code>R/</code> in alphabetical order.
                 When that becomes an issue (e.g., many files in <code>R/</code>) you can use the <code>Collation</code> field in <code>DESCRIPTION</code>.
-                The <code>roxyge2</code> package provides <code>#' @include ...</code> for manpulating the collation order.
+                The <code>roxyge2</code> package provides <code>#' @include ...</code> for manipulating the collation order.
             </p>
         </div>
     </layout>
@@ -42,10 +42,10 @@
 
                 items: [
                     "all <code>.R</code> script files live in this folder",
-                    "it is not permited to create subfolders",
+                    "it is not allowed to create sub folders",
                     "never use <code>library()</code>, <code>require()</code> or <code>source()</code> in <code>R/</code>",
                     "a good idea is to create an <code>.R</code> file per function",
-                    "e.g., <code>boostrap()</code> will be placed in file <code>bootstrap.R</code>"
+                    "e.g., <code>bootstrap()</code> will be placed in file <code>bootstrap.R</code>"
                 ]
             }
         }

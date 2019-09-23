@@ -24,7 +24,7 @@
         <div slot="additional" class="slot-content-additional">
             <h4>Good to know:</h4>
             <ul>
-                <li>now it is a good time to locate the package folder and open it in <code>VS Code</code> or <code>RStudio</code></li>
+                <!-- <li>now it is a good time to locate the package folder and open it in <code>VS Code</code> or <code>RStudio</code></li> -->
                 <li>we will generate the additional files and folders as we progress trough the workshop</li>
             </ul>
         </div>

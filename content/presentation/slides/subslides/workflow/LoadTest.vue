@@ -8,7 +8,7 @@
                 <li>test the functions accordingly (e.g., use code below):</li>
             </ol>
 
-<!-- Code in wierd position. -->
+<!-- Code in weird position. -->
 <div class="code">
 <pre><code class="hljs r">library(datasets)
 head(cars)

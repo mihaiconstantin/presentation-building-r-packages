@@ -5,7 +5,7 @@
             <ul>
                 <li v-for="(item, index) in items" :key="index" :class="{ fragment: index > 0 }" v-html="item"></li>
                 <li class="fragment">you can find a good <a href="https://r-pkgs.org/man.html">introduction to <code>man/</code> here</a></li>
-                <li class="fragment">we will get back to using <code>roxygen2</code> later on</li>
+                <li class="fragment">we will get back to using <code>roxygen2</code> later</li>
             </ul>
         </div>
 
@@ -19,7 +19,7 @@
             <p>
                 The <code>roxygen2</code> package allows us to document functions in the same file where they are defined. 
                 It uses special tags such as <code>#' @import ...</code>, <code>#' @param ...</code> etc. 
-                See <a href="http://r-pkgs.had.co.nz/man.html">this resource</a> for an overiew.
+                See <a href="http://r-pkgs.had.co.nz/man.html">this resource</a> for an overview.
             </p>
         </div>
     </layout>
@@ -42,7 +42,7 @@
                 img: "content/presentation/assets/img/man.png",
 
                 items: [
-                    "contains all the <code>.Rd</code> docuemntation files",
+                    "contains all the <code>.Rd</code> documentation files",
                     "<code>.Rd</code> files are written in <code>LaTeX</code>",
                     "every object exported should be documented",
                     "when using <code>roxygen2</code> <code>.Rd</code> are generated automatically"

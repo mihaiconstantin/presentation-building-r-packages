@@ -7,13 +7,13 @@
             </ol>
             <ul>
                 <li>you may want to consult <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">this resource</a> to get familiar with the keywords used by <code>roxygen2</code></li>
-                <li>the code below ilustrates the main keywords usd to document a function</li>
+                <li>the code below illustrates the main keywords used to document a function</li>
             </ul>
         </div>
 
         <!-- Bottom. -->
         <div slot="bottom" class="slot-content-bottom">
-            <!-- Code that must remain in a wierd position. -->
+            <!-- Code that must remain in a weird position. -->
 <div class="code">
 <pre><code class="hljs r" data-line-numbers>#' The title goes here.
 #'

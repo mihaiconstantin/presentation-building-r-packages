@@ -8,7 +8,7 @@
                 <li>test the <code>S3</code> generics using the code below</li>
             </ol>
 
-<!-- Testing code in wierd poisition. -->
+<!-- Testing code in weird position. -->
 <div class="code">
 <pre><code class="hljs r" data-line-numbers>library(datasets)
 head(cars)

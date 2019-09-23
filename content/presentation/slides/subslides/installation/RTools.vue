@@ -22,7 +22,7 @@
             <div class="additional-information">
                 <h4>Good to know:</h4>
                 <ul>
-                    <li>sometimes <code>RStudio</code> promts you to install <code>R Tools</code> from within <code>RStudio</code>; 
+                    <li>sometimes <code>RStudio</code> prompts you to install <code>R Tools</code> from within <code>RStudio</code>; 
                     it is recommended to install it directly for the official <code>R</code> website</li>
                     <li>for more information see <a href="http://jtleek.com/modules/01_DataScientistToolbox/02_10_rtools/#1">this short presentation</a></li>
                 </ul>

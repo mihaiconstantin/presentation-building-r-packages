@@ -31,7 +31,7 @@
                 logo: "content/presentation/assets/img/r_logo.jpg",
 
                 items: [
-                    "implement your methdology",
+                    "implement your methodology",
                     "run your simulations",
                     "etc."
                 ]

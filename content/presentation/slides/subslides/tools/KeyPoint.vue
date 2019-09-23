@@ -36,7 +36,7 @@
 
                 topRowItems: [
                     "you can build a package only with <code>R</code>, <code>R tools</code> and <code>Notepad</code>",
-                    "however, the tools mentioned makes the process more convienent and fun"
+                    "however, the tools mentioned makes the process more convenient and fun"
                 ],
 
                 bottomRowItems: [

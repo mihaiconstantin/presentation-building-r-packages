@@ -26,9 +26,9 @@
                 agenda: [
                     "overview of the tools needed to build packages",
                     "the anatomy of an `R` package",
-                    "example of combinding the tools into an workflow",
+                    "example of combining the tools into an workflow",
                     "getting our hands dirty with code",
-                    "some curated resources"
+                    "some resources for later"
                 ]
             }
         }

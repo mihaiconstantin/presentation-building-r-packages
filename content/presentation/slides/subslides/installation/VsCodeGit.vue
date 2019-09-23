@@ -22,7 +22,7 @@
             <div class="additional-information">
                 <h4>For more information see:</h4>
                 <ul>
-                    <li><a href="https://superuser.com/a/284351/657327">this link</a> on environemntal variables</li>
+                    <li><a href="https://superuser.com/a/284351/657327">this link</a> on environmental variables</li>
                     <li><a href="https://stackoverflow.com/a/26620861/5252007">and this link</a> on adding <code>git</code> to the <code>PATH</code></li>
                     <li>you can also add <code>R</code> (e.g., <code>C:\Program Files\R\R-3.6.1\bin</code>) to the <code>PATH</code> variable in order to use it from the <code>VS Code</code> terminal</li>
                 </ul>

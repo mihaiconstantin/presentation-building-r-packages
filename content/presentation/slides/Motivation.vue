@@ -29,10 +29,10 @@
                 title: "Why build an `R` package?",
 
                 reasons: [
-                    "standard way of organizing your scripts",
+                    "standard way of organizing the scripts",
                     "easy way to share your code",
                     "contribute back to the community",
-                    "easier indetify bugs and receive feedback"
+                    "easier to identify bugs and receive feedback"
                 ]
             }
         }

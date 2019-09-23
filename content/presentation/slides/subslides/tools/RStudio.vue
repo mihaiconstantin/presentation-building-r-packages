@@ -5,7 +5,7 @@
             <h4>A bit clumsy, but...</h4>
 
             <ul>
-                <li>has convinent shortcuts around the <code><a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a></code> package</li>
+                <li>convenient shortcuts around the <code><a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a></code> package</li>
                 <li v-for="(item, index) in items" :key="index" v-html="item"></li>
             </ul>
         </div>

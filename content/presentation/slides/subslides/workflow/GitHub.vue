@@ -32,7 +32,7 @@
             return {
                 title: "Publish the package",
 
-                img: { src: "content/presentation/assets/img/github.png", alt: "Github repository" }
+                img: { src: "content/presentation/assets/img/github.png", alt: "GitHub repository" }
             }
         }
     }

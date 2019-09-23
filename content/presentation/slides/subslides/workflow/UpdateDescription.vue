@@ -5,7 +5,7 @@
             <ol>
                 <li>in <code>RStudio</code> run <code>use_mit_license("Your Name")</code></li>
                 <li>open <code>DESCRIPTION</code> file in <code>VS Code</code></li>
-                <li>update all other fields acordingly</li>
+                <li>update all other fields accordingly</li>
                 <li>stage and commit the changes so far</li>
             </ol>
         </div>

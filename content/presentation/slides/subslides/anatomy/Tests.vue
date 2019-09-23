@@ -16,9 +16,9 @@
         <!-- Additional content. -->
         <div slot="additional" class="slot-content-additional">
             <p>
-                <code>unit testing</code> can be especially useful when you work on a large package with several other controbutors.
+                <code>unit testing</code> can be especially useful when you work on a large package with several other contributors.
                 Writing tests is an optional step. You are not required to write any tests in order to submit your package to <code>CRAN</code>.
-                They may require specialized knowedge and terminology.
+                They may require specialized knowledge and terminology.
             </p>
         </div>
     </layout>

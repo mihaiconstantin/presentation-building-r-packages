@@ -10,7 +10,7 @@
 
             <div class="aside fragment">
                 <hr class="hr-stretch">
-                <p>To sumbit to <code>CRAN</code> the <code>check()</code> function must return 0 errors and warnings.</p>
+                <p>To submit to <code>CRAN</code> the <code>check()</code> function must return 0 errors and warnings.</p>
                 <p>In our case we have warnings related to the <code>DESCRIPTION</code> file. Let's fix them!</p>
             </div>
         </div>

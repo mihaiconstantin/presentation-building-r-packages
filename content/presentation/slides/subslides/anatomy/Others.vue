@@ -3,8 +3,8 @@
         <!-- Left content. -->
         <div slot="left" class="slot-content-left">
             <ul>
-                <li><code>README.md</code><span class="recommendation"> &rarr; package overview and instruction for GitHub repository</span></li>
-                <li class="fragment"><code>NEWS</code><span class="recommendation"> &rarr; a form of realese notes for new things added to the package</span></li>
+                <li><code>README.md</code><span class="recommendation"> &rarr; package overview and instruction for <code>GitHub</code> repository</span></li>
+                <li class="fragment"><code>NEWS</code><span class="recommendation"> &rarr; a form of release notes for new things added to the package</span></li>
                 <li class="fragment"><code>COPYING</code><span class="recommendation"> &rarr; the package legal license</span></li>
                 <li class="fragment"><code>.gitignore</code><span class="recommendation"> &rarr; a list of files to be ignored by <code>git</code></span></li>
                 <li class="fragment"><code>data/</code><span class="recommendation"> &rarr; a folder to store data associated with the package</span></li>
