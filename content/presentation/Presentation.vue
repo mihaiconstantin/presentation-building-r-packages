@@ -5,31 +5,45 @@
 
         <div class="slides">
             <!-- Title slide. -->
-            <!-- <introduction></introduction> -->
+            <introduction></introduction>
 
             <!-- Motivation. -->
-            <!-- <motivation></motivation> -->
+            <motivation></motivation>
 
             <!-- Outline. -->
-            <!-- <outline></outline> -->
+            <outline></outline>
 
             <!-- Slides -->
 
             <!-- Overview of the toolchain. -->
-            <!-- <tools></tools> -->
+            <tools></tools>
 
             <!-- Installation check. -->
-            <!-- <installation></installation> -->
+            <installation></installation>
 
             <!-- Skeleton of an R package. -->
-            <!-- <anatomy></anatomy> -->
+            <anatomy></anatomy>
 
             <!-- Example of an workflow. -->
-            <workflow></workflow>
+            <workflow-first-part></workflow-first-part>
 
-            <!-- Getting our hands dirty. -->
+            <!-- First code example. -->
+            <code-example-first></code-example-first>
+
+            <!-- Continuing the workflow. -->
+            <workflow-second-part></workflow-second-part>
+
+            <!-- First code example. -->
+            <code-example-second></code-example-second>
+
+            <!-- Final part of the workflow. -->
+            <workflow-final-part></workflow-final-part>
 
             <!-- Resources. -->
+            <resources></resources>
+
+            <!-- The end. -->
+            <the-end></the-end>
         </div>
 
         <!-- Footer. -->
@@ -51,7 +65,13 @@
             'tools': httpVueLoader('./slides/Tools.vue'),
             'installation': httpVueLoader('./slides/Installation.vue'),
             'anatomy': httpVueLoader('./slides/Anatomy.vue'),
-            'workflow': httpVueLoader('./slides/Workflow.vue')
+            'workflow-first-part': httpVueLoader('./slides/WorkflowFirstPart.vue'),
+            'code-example-first': httpVueLoader('./slides/CodeExampleFirst.vue'),
+            'workflow-second-part': httpVueLoader('./slides/WorkflowSecondPart.vue'),
+            'code-example-second': httpVueLoader('./slides/CodeExampleSecond.vue'),
+            'workflow-final-part': httpVueLoader('./slides/WorkflowFinalPart.vue'),
+            'resources': httpVueLoader('./slides/Resources.vue'),
+            'the-end': httpVueLoader('./slides/TheEnd.vue')
         },
 
         mounted() {

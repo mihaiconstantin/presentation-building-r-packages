@@ -2,7 +2,7 @@
     <layout :title="title" :fragment="true">
         <!-- Top row. -->
         <div slot="row" class="slot-content-row">
-            <h4>Few words about <code class="highlight">devtools</code>...</h4>
+            <h4>Few words about <code>devtools</code>...</h4>
             <ul>
                 <li>it is useful to get familiar with its <a href="https://cran.r-project.org/web/packages/devtools/devtools.pdf">documentation</a></li>
                 <li v-for="(item, index) in topRowItems" :key="index" v-html="item"></li>

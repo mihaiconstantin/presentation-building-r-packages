@@ -6,137 +6,151 @@ output: html_document
 ---
 ## **Introduction to building R Packages**
 
-Now it's time to let things more practical by creating our own package.
-We can divide the work into two steps: 
-
-  1. Package creation;
-  2. Package testing.
 
 ## **1. Package creation**
-### A package about the Ordinary non-parametric bootstrap
-You are requested to write a R package (`footstrap`) that allows users to carry out a bootstrap analysis on the t statistic to test for equal means. The package will have to focus on the ordinary non-parametric bootstrapping procedure, i.e. the very basic one, and it will finally have to compare the bootstrap results with the theoretical ones (approximation of the statistic distribution to a Student t with specific degrees of freedom).
 
-### Functions to be provided inside the package
+### A package about the ordinary non-parametric bootstrap
 
-The programmer will have to provide:
+You are requested to write a `R` package (`footstrap`) that allows users to carry out a bootstrap analysis on the `t` statistic to test for equal means. The package should focus on the ordinary non-parametric bootstrapping procedure (i.e. the very basic one). It will also compare the bootstrap results with the theoretical ones (approximation of the statistic distribution to a `Student t` with specific degrees of freedom).
 
-  1. The _statistic_ that the main function will need to run for each bootstrap sample:
-    * `get.lm`;
-  2. the _main function_ `get_bootstrap`, that runs the bootstrap simulation and where functions above will be used;
-  3. additional functions like `summary.get_bootstrap` and `plot.get_bootstrap` in order to respectively obtain a summary of the results and plots.
+### Functions inside the package
+
+The programmer needs to provide:
+
+  1. The _statistic_ that the main function will need to run on each bootstrap sample: `get.lm`
+  2. the _main function_ `get.bootstrap`, that runs the bootstrap simulation (i.e., it uses `get.lm`)
+  3. additional functions `summary.get.bootstrap` and `plot.get.bootstrap` in order to obtain a summary of the results and plots
  
-Would you want to see the structure of the package in terms of dependencies we can consider the following chart,
+The following diagram illustrates the structure of the functions.
+
   `put here the flow diagram`
   
-### Let's get our hands dirty with coding
 
-#### 1. **_Statistic_**: `get.lm`
+### Let's get our hands dirty with coding!
+
+#### 1. **_statistic_**: `get.lm`
+
 ```{r}
 get.lm <- function(formula, data, indices) {
-  return(lm(formula=formula,data=data[indices,])$coef)
+  return(lm(formula = formula, data = data[indices, ])$coef)
 }
 ```
 
-#### 2. **_The main function_**: `get.bootstrap`
+#### 2. **_the main function_**: `get.bootstrap`
+
 ```{r}
-get.bootstrap <- function(data,
-                          statistic,
-                          replicates,
-                          formula) {
-  
-  n <- NROW(data)
-  
-  # Creating random samples with replacement (size = data dimension)
-  samples <- matrix(sample(1:n,n*replicates,replace=T), nrow = replicates, ncol = n)
-  
-  # Running bootstrap over samples
-  boot.sim <- t(apply(samples, 1, function(x) statistic(formula = formula, data = data, indices = x)))
-  
-  # Creating object out (output)
-  out <- list()
-  out$boot.sim <- boot.sim
-  out$obs.statistic <- statistic(formula = formula, data = data, indices = 1:n)
-  out$data <- data
-  out$formula <- formula
-  
-  # Define object class.
-  class(out) <- "boot"
-  return(out)
+get.bootstrap <- function(data, statistic, replicates, formula) {
+    # Get the number of rows.
+    n <- nrow(data)
+
+    # Create random samples with replacement.
+    samples <- matrix(sample(1:n, n * replicates, replace = T), nrow = replicates, ncol = n)
+
+    # Run the bootstrap over the samples.
+    boot.sim <- t(apply(samples, 1, function(x) statistic(formula = formula, data = data, indices = x)))
+
+    # Create the output object.
+    out <- list()
+    out$boot.sim <- boot.sim
+    out$obs.statistic <- statistic(formula = formula, data = data, indices = 1:n)
+    out$data <- data
+    out$formula <- formula
+
+    # Define object class.
+    class(out) <- "boot"
+
+    return(out)
 }
 ```
-#### 3. **_Plotting and summing up the results_**
-####  - `summary.boot`
+
+#### 3. **_summary of the results_**: `summary.boot`
+
 ```{r}
 summary.boot <- function(boot) {
-  
-  se.mle <- summary(lm(formula=boot$formula,data=boot$data))$coef[,2]
-  se.boot <- apply(boot$boot.sim,2,sd)
-  se.all <- cbind(se.mle,se.boot)
-  colnames(se.all) <- c("MLE","Bootstrap")
-  cat("Comparison between standard errors: \n")
-  print(se.all)
+    # MLE standard errors.
+    se.mle <- summary(lm(formula = boot$formula, data = boot$data))$coef[, 2]
+
+    # Bootstrap standard errors.
+    se.boot <- apply(boot$boot.sim, 2, sd)
+
+    # Put all SEs together.
+    se.all <- cbind(se.mle, se.boot)
+
+    # Add column names.
+    colnames(se.all) <- c("MLE", "Bootstrap")
+
+    # Pretty print.
+    cat("Comparison between Standard Errors:", "\n")
+    print(se.all)
 }
 ```
-#### - `plot.boot`
+
+#### 4. **_plotting of the results_**: `plot.boot`
+
 ```{r}
-plot.boot <- function(boot, breaks = 50, ...) {
+plot.boot <- function(boot, breaks = 50) {
+    # This line is only inteded for the handout!
+    require(grDevices)
+    
+    # Get number of parameters.
+    n.parameters <- dim(boot$boot.sim)[2]
 
-  n.parameters <- dim(boot$boot.sim)[2]
-  # Creating plot template
-  require(grDevices)
-  par(mfrow=rev(n2mfrow(n.parameters)))
-  for(i in 1:n.parameters) {
-      hist(boot$boot.sim[,i],
-           breaks = breaks,
-           freq = FALSE, 
-           xlab = colnames(boot$boot.sim)[i], 
-           main = colnames(boot$boot.sim)[i], 
-           col = "papayawhip")
-      box()
-      abline(v=boot$obs.statistic[i],col="red",lwd=2,lty=2)
-      legend("topright",
-             legend=c("MLE"),
-             col=c("red"),
-             lwd=2,
-             lty=2,
-             ncol=1,
-             cex=0.8,
-             bty="n")
-  }
-  mtext("Bootstrap distributions",
-        side = 3,
-        line = -1,
-        outer = TRUE)
+    # Split screen.
+    par(mfrow = rev(n2mfrow(n.parameters)))
+
+    # Create plot template.
+    for(i in 1:n.parameters) {
+        hist(boot$boot.sim[, i], breaks = breaks, 
+             freq = FALSE, 
+             xlab = colnames(boot$boot.sim)[i], 
+             main = colnames(boot$boot.sim)[i], 
+             col = "papayawhip")
+        box()
+        abline(v = boot$obs.statistic[i], col = "red", lwd = 2, lty = 2)
+        legend("topright", legend = c("MLE"), col = c("red"), lwd = 2, 
+               lty = 2, ncol = 1, cex = 0.8, bty = "n")
+    }
+
+    mtext("Bootstrap distributions", side = 3, line = -1, outer = TRUE)
+
+    # Un-split screen.
+    par(mfrow = c(1, 1))
 }
-
 ```
 
-    
-## **2. Package testing**   
-Let's load our new package `footstrap` and run the examples in the codes below
+
+---
+
+
+## **2. Package testing**
+
+Let's load our new package `footstrap` and run the examples in the codes below.
+
 ```{r, message=FALSE,warning=FALSE}
-#library(footstrap)
+# library(footstrap)
 ```
 
 #### **Example 1** model = `speed ~ dist`, dataset `cars` (sample size = 50)
 ```{r, message=FALSE,warning=FALSE}
 library(datasets)
 head(cars)
-example_1 <- get.bootstrap(data = cars, statistic = get.lm, replicates = 1e4, formula = speed ~ dist)
-plot(example_1)
-summary(example_1)
+example.1 <- get.bootstrap(data = cars, statistic = get.lm, replicates = 1e3, formula = speed ~ dist)
+plot(example.1)
+summary(example.1)
 ```
+
 #### **Example 2** model = `weight ~ feed`, dataset `chickwts` (sample size = 71)
 ```{r, message=FALSE,warning=FALSE}
 head(chickwts)
-example_2 <- get.bootstrap(data = chickwts, statistic = get.lm, replicates = 1e4, formula = weight ~ feed)
-plot(example_2)
-summary(example_2)
+example.2 <- get.bootstrap(data = chickwts, statistic = get.lm, replicates = 1e3, formula = weight ~ feed)
+plot(example.2)
+summary(example.2)
 ```
+
 #### **Example 3** where `log(Volume) ~ log(Girth)`, dataset `trees` (sample size = 31)
 ```{r, message=FALSE,warning=FALSE}
 head(trees)
-example_3 <- get.bootstrap(data = trees, statistic = get.lm, replicates = 1e4, formula = log(Volume) ~ log(Girth))
-plot(example_3)
-summary(example_3)
+example.3 <- get.bootstrap(data = trees, statistic = get.lm, replicates = 1e3, formula = log(Volume) ~ log(Girth))
+plot(example.3)
+summary(example.3)
 ```

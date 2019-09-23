@@ -78,7 +78,7 @@
     margin-bottom: 1.5rem;
 }
 
-.canvas code {
+.canvas code:not(.hljs) {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     color: #C1625F;

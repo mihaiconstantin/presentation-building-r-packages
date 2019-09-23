@@ -11,7 +11,7 @@
 
 
         <div slot="bottom" class="slot-content-bottom">
-            <h4>The main package we need is <span class='highlight'><code>devtools</code></span>:</h4>
+            <h4>The main package we need is <code>devtools</code>:</h4>
 
             <ul class="points">
                 <li v-for="(item, index) in bottomRowItems" :key="index" v-html="item"></li>
@@ -65,9 +65,5 @@
 
     .green {
         background-color: green;
-    }
-
-    .slot-content-bottom code {
-        color: white;
     }
 </style>
