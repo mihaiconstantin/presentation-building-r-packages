@@ -1,5 +1,5 @@
 <h1>
-    Introduction to building <code>R</code> packages for PhD students
+    Introduction to building <code>R</code> packages for PhDs
     &nbsp;
     <img src="content/images/tilburg-university-logo.png" align="right" height="90">
 </h1>
