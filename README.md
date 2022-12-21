@@ -27,9 +27,12 @@ the root repository folder and the presentation can be up at
 <br><hr>
 <h3 align="center">
     Alternatively, you can browse the slides at <br>
-    <a href="https://slides.mihaiconstantin.com/building-r-packages">slides.mihaiconstantin.com/building-r-packages</a>.
+    <a href="https://building-r-packages.mihaiconstantin.com">building-r-packages.mihaiconstantin.com</a>.
 </h3>
 <hr><br>
+
+***Tip.*** Press `shift` `+` `?` for a list of keyboard shortcuts that can be
+used to browse the presentation.
 
 ## Creators
 
